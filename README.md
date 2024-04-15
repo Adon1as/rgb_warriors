@@ -1,0 +1,1 @@
+O GDD do inicial do jogo pode ser lido no aquivo [GDD RGB Warriors.docx](https://github.com/Adon1as/rgb_warriors/blob/main/GDD%20RGB%20Warriors.docx) ou pelo [link para Drive](https://docs.google.com/document/d/1okHAa9a-ZZxE6_oG6Lp0Dz-9fDSC_6hN9u34XSIsIkM/edit?usp=sharing). 
