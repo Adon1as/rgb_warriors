@@ -1,33 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgy33o35yhae5"]
+[gd_scene load_steps=5 format=3 uid="uid://bgy33o35yhae5"]
 
 [ext_resource type="PackedScene" uid="uid://csfikdq4cjl0e" path="res://base_map.tscn" id="1_b8w8d"]
-[ext_resource type="Texture2D" uid="uid://bg6t5jo7vnupt" path="res://assests/icon.svg" id="1_d5l80"]
 [ext_resource type="PackedScene" uid="uid://ggqjmx1ipw0a" path="res://base_char.tscn" id="2_fu74x"]
 [ext_resource type="Texture2D" uid="uid://bg44cfaievdon" path="res://assests/text_textura_liht.png" id="3_wu2kk"]
-[ext_resource type="Script" path="res://StaticBody2D.gd" id="4_ffh5c"]
-[ext_resource type="Script" path="res://scripts/VisionCheckRayCast2D.gd" id="5_j3ci5"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cvsil"]
+[ext_resource type="PackedScene" uid="uid://csywv0522x5dk" path="res://scripts/dump_static_body_2d.tscn" id="4_nu74x"]
 
 [node name="Node2D" type="Node2D"]
-
-[node name="StaticBody2D2" type="StaticBody2D" parent="."]
-z_index = 1
-position = Vector2(407, 194)
-script = ExtResource("4_ffh5c")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-shape = SubResource("RectangleShape2D_cvsil")
-metadata/_edit_lock_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D2"]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_d5l80")
-metadata/_edit_lock_ = true
-
-[node name="RayCast2D" type="RayCast2D" parent="StaticBody2D2"]
-script = ExtResource("5_j3ci5")
-metadata/_edit_lock_ = true
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.942822, 0.942823, 0.942823, 1)
@@ -53,19 +31,8 @@ texture = ExtResource("3_wu2kk")
 texture_scale = 2.0
 metadata/_edit_lock_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-position = Vector2(361, 193)
-script = ExtResource("4_ffh5c")
+[node name="Dump2" parent="." instance=ExtResource("4_nu74x")]
+position = Vector2(430, 212)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_cvsil")
-metadata/_edit_lock_ = true
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_d5l80")
-metadata/_edit_lock_ = true
-
-[node name="RayCast2D" type="RayCast2D" parent="StaticBody2D"]
-script = ExtResource("5_j3ci5")
-metadata/_edit_lock_ = true
+[node name="Dump" parent="." instance=ExtResource("4_nu74x")]
+position = Vector2(379.846, 210.082)

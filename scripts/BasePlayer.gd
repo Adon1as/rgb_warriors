@@ -85,7 +85,7 @@ func base_moviment():
 func dash_moviment(delta):
 		
 	velocity = _target * SPEED*2
-	dash_time_count = dash_time_count + delta
+	dash_time_count += delta
 
 	if dash_time_count > base_dash_time:
 		in_dash = false
@@ -93,7 +93,6 @@ func dash_moviment(delta):
 		dash_time_count = 0
 
 func stance_shift(i):
-
 	var c
 	if i == 0: 
 		c = R
