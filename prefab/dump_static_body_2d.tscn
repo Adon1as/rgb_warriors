@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://csywv0522x5dk"]
 
-[ext_resource type="Script" path="res://DumpStaticBody2D.gd" id="1_rl3re"]
+[ext_resource type="Script" path="res://scripts/DumpStaticBody2D.gd" id="1_rl3re"]
 [ext_resource type="Texture2D" uid="uid://bg6t5jo7vnupt" path="res://assests/icon.svg" id="2_7u3sp"]
-[ext_resource type="PackedScene" uid="uid://cnu6hphq6em2o" path="res://scripts/visibilit_ray_cast_2d.tscn" id="3_224al"]
+[ext_resource type="PackedScene" uid="uid://cnu6hphq6em2o" path="res://prefab/visibilit_ray_cast_2d.tscn" id="3_224al"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2cpoh"]
 
