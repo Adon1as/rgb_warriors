@@ -16,6 +16,4 @@ func _process(delta):
 	else:
 		parent.visible = false
 	
-	if "name" in get_collider():
-		print(get_collider().name) 
 	

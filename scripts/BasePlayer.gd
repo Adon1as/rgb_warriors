@@ -15,6 +15,7 @@ var in_guard = false;
 const R = Color(0.8,0,0)
 const G = Color(0,0.5,0)
 const B = Color(0,0,1,0.5)
+var stance = 2
 
 const base_HP = 10
 var HP = 10
@@ -92,30 +93,33 @@ func dash_moviment(delta):
 		get_child(3).visible = false
 		dash_time_count = 0
 
-func stance_shift(i):
+func stance_shift(s):
 	var c
-	if i == 0: 
+	if s == 0: 
 		c = R
-	elif i == 1:	
+	elif s == 1:	
 		c = G
-	elif i == 2:	
+	elif s == 2:	
 		c = B
 	else:
 		c = B
 		
+	stance = s	
+	
 	get_child(2).modulate = c;
 	get_child(3).modulate = c;
 	
 func sp_change(stamina):
 	SP = SP + stamina
-	print("SP: ", SP)
+	#print("SP: ", SP)
 	 	
 
 func hp_change(damage):
 	HP = HP + damage
-	print("HP: ", HP)
+	#print("HP: ", HP)
 
 func colliders_dmg_maneger(delta):
+	
 	for i in get_slide_collision_count():
 		var collider = get_slide_collision(i).get_collider()
 		if "deal_damage" in collider and collider.deal_damage:
@@ -125,8 +129,19 @@ func colliders_dmg_maneger(delta):
 	if !collider_dmg_list.is_empty():
 		if dmg_timer <= 0:
 			while !collider_dmg_list.is_empty():
-				hp_change(-1)
-				collider_dmg_list.pop_front()	
+				var mod = 1
+				var s = collider_dmg_list.pop_front().stance
+				if s!=stance:
+					if (s > stance and s+stance != 2) or (s < stance and s+stance == 2):
+						mod = 0.5
+					else:
+						mod = 2
+				print(mod)
+				if in_guard and SP > 2:
+					sp_change(-2*mod)	
+				else:
+					hp_change(-1*mod)
+
 			dmg_timer = 1
 		else:
 			dmg_timer -= delta
