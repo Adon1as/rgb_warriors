@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+var manual = true
+
 const SPEED = 300.0
 
 var _target
@@ -56,7 +58,6 @@ func _input(event):
 
 func _physics_process(delta):
 	dash_cooldown_count += delta;
-	
 	if !in_guard:
 		if in_dash: 
 			dash_moviment(delta)
@@ -146,7 +147,22 @@ func colliders_dmg_maneger(delta):
 		else:
 			dmg_timer -= delta
 
-	
+func to_json():
+	var dictionary = {
+		"name":name,
+		"velocity":velocity,
+		"rotation":transform.get_rotation(),
+		"stance":stance,
+		"in_dash":in_dash,
+		"in_guard":in_guard
+	}
 
+	return JSON.stringify(dictionary)	
 
-	
+func from_json(json_string):
+	var data = JSON.parse_string(json_string)
+	velocity = data.velocity
+	transform.rotated(data.rotation)
+	stance = data.stance
+	in_dash = data.in_dash
+	in_guard = data.in_guard
