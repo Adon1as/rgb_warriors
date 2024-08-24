@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var manual = true
+@export var manual = true
 
 const SPEED = 300.0
 
@@ -27,36 +27,43 @@ var SP = 10
 var collider_dmg_list = []	
 var dmg_timer = 1
 
+var server_master = false
+
 func _ready():
 	stance_shift(2)
 	
 func _input(event):
-		#TODO usar input map
-		if event is InputEventKey and !in_dash and !in_guard:
-			if event.keycode == 81:
-				stance_shift(0)
-			elif event.keycode == 69:
-				stance_shift(1)
-			elif event.keycode == 32:
-				stance_shift(2)
+	if(!manual):
+		return
+	#TODO usar input map
+	if event is InputEventKey and !in_dash and !in_guard:
+		if event.keycode == 81:
+			stance_shift(0)
+		elif event.keycode == 69:
+			stance_shift(1)
+		elif event.keycode == 32:
+			stance_shift(2)
+	
+	if event is InputEventMouseButton:
+		if event.button_index == 1 and dash_cooldown_count > base_dash_cooldown and !in_guard and SP>4:
+			_target = position.direction_to(get_global_mouse_position())
+			in_dash = true;
+			get_child(3).visible = true;
+			dash_cooldown_count = 0
+			sp_change(-5)
 		
-		if event is InputEventMouseButton:
-			if event.button_index == 1 and dash_cooldown_count > base_dash_cooldown and !in_guard and SP>4:
-				_target = position.direction_to(get_global_mouse_position())
-				in_dash = true;
-				get_child(3).visible = true;
-				dash_cooldown_count = 0
-				sp_change(-5)
-			
-			elif event.button_index == 2:
-				if event.pressed and !in_dash:
-					get_child(2).visible = true
-					in_guard = true
-				else:
-					get_child(2).visible = false
-					in_guard = false	
+		elif event.button_index == 2:
+			if event.pressed and !in_dash:
+				get_child(2).visible = true
+				in_guard = true
+			else:
+				get_child(2).visible = false
+				in_guard = false	
 
 func _physics_process(delta):
+	if(!manual):
+		move_and_slide()
+		return
 	dash_cooldown_count += delta;
 	if !in_guard:
 		if in_dash: 
@@ -69,7 +76,6 @@ func _physics_process(delta):
 				
 	colliders_dmg_maneger(delta)
 	move_and_slide()
-	
 
 
 func base_moviment():
@@ -112,12 +118,10 @@ func stance_shift(s):
 	
 func sp_change(stamina):
 	SP = SP + stamina
-	#print("SP: ", SP)
 	 	
 
 func hp_change(damage):
 	HP = HP + damage
-	#print("HP: ", HP)
 
 func colliders_dmg_maneger(delta):
 	
@@ -137,7 +141,7 @@ func colliders_dmg_maneger(delta):
 						mod = 0.5
 					else:
 						mod = 2
-				print(mod)
+
 				if in_guard and SP > 2:
 					sp_change(-2*mod)	
 				else:
@@ -150,8 +154,9 @@ func colliders_dmg_maneger(delta):
 func to_json():
 	var dictionary = {
 		"name":name,
-		"velocity":velocity,
+		#"velocity":var_to_str(velocity),
 		"rotation":transform.get_rotation(),
+		"position":var_to_str(position),
 		"stance":stance,
 		"in_dash":in_dash,
 		"in_guard":in_guard
@@ -161,8 +166,11 @@ func to_json():
 
 func from_json(json_string):
 	var data = JSON.parse_string(json_string)
-	velocity = data.velocity
-	transform.rotated(data.rotation)
+	#velocity = str_to_var(data['velocity'])
+	rotation = data.rotation
+	position = str_to_var(data['position'])
 	stance = data.stance
 	in_dash = data.in_dash
 	in_guard = data.in_guard
+	print(data.rotation)
+

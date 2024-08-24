@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cjkyauk7dtjmi"]
+
+[ext_resource type="Script" path="res://prefab/ws_connection.gd" id="1_en3l1"]
+
+[node name="ws_connection" type="Node"]
+script = ExtResource("1_en3l1")

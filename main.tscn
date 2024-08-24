@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgy33o35yhae5"]
+[gd_scene load_steps=7 format=3 uid="uid://bgy33o35yhae5"]
 
 [ext_resource type="PackedScene" uid="uid://csfikdq4cjl0e" path="res://prefab/base_map.tscn" id="1_b8w8d"]
 [ext_resource type="PackedScene" uid="uid://ggqjmx1ipw0a" path="res://prefab/base_char.tscn" id="2_fu74x"]
+[ext_resource type="PackedScene" uid="uid://d3gp216ot1fil" path="res://prefab/player_layout.tscn" id="3_r53r4"]
 [ext_resource type="Texture2D" uid="uid://bg44cfaievdon" path="res://assests/text_textura_liht.png" id="3_wu2kk"]
 [ext_resource type="PackedScene" uid="uid://csywv0522x5dk" path="res://prefab/dump_static_body_2d.tscn" id="4_nu74x"]
+[ext_resource type="PackedScene" uid="uid://cjkyauk7dtjmi" path="res://prefab/ws_connection.tscn" id="6_vyvcu"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -12,9 +14,12 @@ color = Color(0.942822, 0.942823, 0.942823, 1)
 
 [node name="BaseMap" parent="." instance=ExtResource("1_b8w8d")]
 
+[node name="player_layout" parent="." instance=ExtResource("3_r53r4")]
+position = Vector2(652, 572)
+
 [node name="BaseChar" parent="." instance=ExtResource("2_fu74x")]
 z_index = 2
-position = Vector2(82, 82)
+position = Vector2(636, 588)
 
 [node name="Camera2D" type="Camera2D" parent="BaseChar"]
 rotation = -0.227531
@@ -36,3 +41,15 @@ position = Vector2(430, 212)
 
 [node name="Dump" parent="." instance=ExtResource("4_nu74x")]
 position = Vector2(379.846, 210.082)
+
+[node name="ws_connection" parent="." instance=ExtResource("6_vyvcu")]
+
+[node name="RemotChar" parent="." instance=ExtResource("2_fu74x")]
+position = Vector2(-46, 225)
+manual = false
+
+[node name="Spawn1" type="Node2D" parent="."]
+position = Vector2(367, 353)
+
+[node name="Spawn2" type="Node2D" parent="."]
+position = Vector2(853, 353)
