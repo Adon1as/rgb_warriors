@@ -4,3 +4,10 @@ Para o rodar o jogo basta abir-lo com a [Godot 4.2.2](https://godotengine.org/do
 Para rodar o servidor é preciso ter o NodeJs istalado na maquinha e rodar o arquivo [Server](https://github.com/Adon1as/rgb_warriors/blob/main/ws_server/server.js).
 
 Para iniciar uma partida abra dos jogos com acesso ao servidor. 
+
+COMANDOS: 
+  Movimento: WASD
+  Troca de Postura: W,R e Eapaço
+  Mira: Ponteiro do Mouse
+  Atacar: Botão Esquedo
+  Defender: Botão Direito 
