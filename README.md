@@ -5,7 +5,7 @@ Para rodar o servidor é preciso ter o NodeJs istalado na maquinha e rodar o arq
 
 Para iniciar uma partida abra dos jogos com acesso ao servidor. 
 
-COMANDOS: 
+COMANDOS:  
   Movimento: WASD  
   Troca de Postura: W,R e Eapaço  
   Mira: Ponteiro do Mouse  
