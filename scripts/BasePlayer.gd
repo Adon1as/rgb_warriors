@@ -28,6 +28,9 @@ var collider_dmg_list = []
 var dmg_timer = 1
 
 var server_master = false
+var online = false
+var deal_damage = false
+var vitorio = false
 
 func _ready():
 	stance_shift(2)
@@ -47,22 +50,31 @@ func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == 1 and dash_cooldown_count > base_dash_cooldown and !in_guard and SP>4:
 			_target = position.direction_to(get_global_mouse_position())
-			in_dash = true;
-			get_child(3).visible = true;
-			dash_cooldown_count = 0
+			dash(true)
 			sp_change(-5)
-		
+			dash_cooldown_count = 0
 		elif event.button_index == 2:
-			if event.pressed and !in_dash:
-				get_child(2).visible = true
-				in_guard = true
-			else:
-				get_child(2).visible = false
-				in_guard = false	
+			guard(event.pressed and !in_dash)
+			
+func guard(on):
+	get_child(2).visible = on
+	in_guard = on
+	velocity.x = 0
+	velocity.y = 0
+	
+func dash(on):
+	in_dash = on;
+	get_child(3).visible = on;
 
+	
+	
 func _physics_process(delta):
 	if(!manual):
+		dash(in_dash)
+		guard(in_guard)
+		deal_damage = in_dash
 		move_and_slide()
+		stance_shift(stance)
 		return
 	dash_cooldown_count += delta;
 	if !in_guard:
@@ -96,8 +108,7 @@ func dash_moviment(delta):
 	dash_time_count += delta
 
 	if dash_time_count > base_dash_time:
-		in_dash = false
-		get_child(3).visible = false
+		dash(false)
 		dash_time_count = 0
 
 func stance_shift(s):
@@ -124,7 +135,6 @@ func hp_change(damage):
 	HP = HP + damage
 
 func colliders_dmg_maneger(delta):
-	
 	for i in get_slide_collision_count():
 		var collider = get_slide_collision(i).get_collider()
 		if "deal_damage" in collider and collider.deal_damage:

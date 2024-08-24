@@ -15,6 +15,7 @@ func _ready():
 func _process(delta):
 	socket.poll()
 	update()
+	checkEnd()
 	var state = socket.get_ready_state()
 	if state == WebSocketPeer.STATE_OPEN:
 		while socket.get_available_packet_count():
@@ -37,8 +38,10 @@ func read_packet() :
 	if error == OK:
 		var data_received = json.data
 		if typeof(data_received) == TYPE_DICTIONARY:
+			player.online = true
 			if data_received["msg"] == "P1":
 				player.position = spawn1.position
+				player.server_master = true
 				remoter.position = spawn2.position
 			if data_received["msg"] == "P2":
 				player.position = spawn2.position
@@ -55,8 +58,18 @@ func read_packet() :
 func update():
 	var json = json_generatior("update",player.to_json())
 	socket.send_text(json)
-	
-func json_generatior(type, data):
+func checkEnd():
+	if(player.master_serve):
+		if player.HP < 1:
+			var json = json_generatior("end",'',"P2 WIMS!")
+			socket.send_text(json)
+		elif(remoter.HP < 1):
+			var json = json_generatior("end",'',"P1 WIMS!")
+			socket.send_text(json)
+		else:
+			var json = json_generatior("end",'',"EMPATE!")
+			socket.send_text(json)
+func json_generatior(type, data, msg = ''):
 	var dictionary = {
 		"type":type,
 		"data":data
