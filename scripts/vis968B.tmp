@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cnu6hphq6em2o"]
-
-[ext_resource type="Script" path="res://VisibilitRayCast2D.gd" id="1_p8ue8"]
-
-[node name="VisibilitRayCast2D" type="RayCast2D"]
-script = ExtResource("1_p8ue8")
