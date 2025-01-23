@@ -80,7 +80,8 @@ function preFabJason(type,msg='',data=''){
 function tratarJson(ws,m){
 
     switch(m.type) {
-    
+        case "close":
+            process.exit()
         case "update":
             playerData = m.data;
             if(ws.oponente != null){

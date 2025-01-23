@@ -182,5 +182,5 @@ func from_json(json_string):
 	stance = data.stance
 	in_dash = data.in_dash
 	in_guard = data.in_guard
-	print(data.rotation)
+
 

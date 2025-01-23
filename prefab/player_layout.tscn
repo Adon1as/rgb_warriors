@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://d3gp216ot1fil"]
 
-[ext_resource type="Script" path="res://player_layout.gd" id="1_e1atl"]
+[ext_resource type="Script" path="res://scripts/player_layout.gd" id="1_e1atl"]
+
 
 [sub_resource type="Theme" id="Theme_dphl0"]
 
